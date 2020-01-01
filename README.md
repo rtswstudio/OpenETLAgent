@@ -46,6 +46,15 @@ The **Load** phase involves writing the data into a destination system, for exam
 
 ## Connectors
 
+## Download
+
+### Build from Source
+
+* Clone this repository
+* Make sure you have `ant` installed
+* From the repository root, run `ant -f build.xml`
+* After the build is finished, you will see the resulting JAR file in the `dist` directory, for example `openetl-agent-0.1.0.jar`
+
 ## Usage
 
 The OpenETL Agent can be run from the command line or programmatically from your Java application. Typically, if running from the command line, multiple instances are started from the Windows Task Scheduler or Unix/Linux CRON Scheduler.
@@ -54,10 +63,14 @@ The OpenETL Agent can be run from the command line or programmatically from your
 
 ### Command Line
 
+**Notes**
+
+* Be sure to add any external libraries (for example JDBC drivers) to your class path
+
 **Windows**
 
 ```
-java -cp openetl-0.1.0.jar com.rtsw.openetl.agent.Agent
+java -cp openetl-agent-0.1.0.jar com.rtsw.openetl.agent.Agent
     -e extract.properties
     -t transform1.properties
     -t transform2.properties
@@ -70,7 +83,7 @@ java -cp openetl-0.1.0.jar com.rtsw.openetl.agent.Agent
 **Unix/Linux**
 
 ```
-java -cp openetl-0.1.0.jar com.rtsw.openetl.agent.Agent
+java -cp openetl-agent-0.1.0.jar com.rtsw.openetl.agent.Agent
     -e extract.properties
     -t transform1.properties
     -t transform2.properties
