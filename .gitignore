@@ -3,3 +3,6 @@
 OpenETLAgent.iml
 out/
 local/
+dist/
+build/
+lib/

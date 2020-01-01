@@ -1,0 +1,35 @@
+<project name="OpenETLAgent" default="dist" basedir=".">
+    <description>OpenETL Agent</description>
+    <property name="version" value="0.1.0"/>
+    <property name="src" location="src"/>
+    <property name="build" location="build"/>
+    <property name="dist"  location="dist"/>
+    <target name="init">
+        <tstamp/>
+        <mkdir dir="${build}"/>
+        <get dest="lib/junit-4.12.jar" src="https://repo1.maven.org/maven2/junit/junit/4.12/junit-4.12.jar"/>
+        <get dest="lib/hamcrest-core-1.3.jar" src="https://repo1.maven.org/maven2/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar"/>
+    </target>
+    <target name="compile" depends="clean, init">
+        <javac target="1.8" source="1.8" includeantruntime="false" srcdir="${src}" destdir="${build}">
+            <classpath>
+                <fileset dir="lib">
+                    <include name="**/*.jar"/>
+                </fileset>
+            </classpath>
+        </javac>
+    </target>
+    <target name="dist" depends="compile">
+        <mkdir dir="${dist}"/>
+        <jar jarfile="${dist}/openetl-agent-${version}.jar" basedir="${build}">
+        </jar>
+        <mkdir dir="${dist}/lib"/>
+        <copy todir="${dist}/lib" >
+            <fileset dir="lib" includes="**"/>
+        </copy>
+    </target>
+    <target name="clean">
+        <delete dir="${build}"/>
+        <delete dir="${dist}"/>
+    </target>
+</project>
