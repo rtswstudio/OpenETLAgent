@@ -1,5 +1,6 @@
 package com.rtsw.openetl.agent.summary;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.rtsw.openetl.agent.api.SummaryPusher;
 import com.rtsw.openetl.agent.common.Configuration;
 import com.rtsw.openetl.agent.common.Summary;
@@ -15,7 +16,13 @@ import java.util.zip.GZIPOutputStream;
  */
 public class DiskSummaryPusher implements SummaryPusher {
 
+    private ObjectMapper mapper = new ObjectMapper();
+
     private File destination;
+
+    private String title;
+
+    private String description;
 
     private String filename;
 
@@ -23,11 +30,19 @@ public class DiskSummaryPusher implements SummaryPusher {
 
     private String encoding;
 
+    private boolean pretty = false;
+
     @Override
     public void init(Configuration configuration) throws Exception {
 
         // required
         destination = new File(configuration.get("destination", null));
+
+        // required
+        title = configuration.get("title", null);
+
+        // optional
+        description = configuration.get("description", null);
 
         // optional
         filename = configuration.get("filename", "summary.json");
@@ -38,10 +53,15 @@ public class DiskSummaryPusher implements SummaryPusher {
         // optional
         encoding = configuration.get("encoding", "UTF-8");
 
+        // optional
+        pretty = configuration.get("pretty", false);
+
     }
 
     @Override
     public void push(Summary summary) {
+        summary.setTitle(title);
+        summary.setDescription(description);
         OutputStream out = null;
         try {
             if (compress) {
@@ -49,7 +69,11 @@ public class DiskSummaryPusher implements SummaryPusher {
             } else {
                 out = new BufferedOutputStream(new FileOutputStream(new File(destination, filename), false));
             }
-            out.write(Summary.Factory.json(summary).getBytes(encoding));
+            if (pretty) {
+                out.write(mapper.writerWithDefaultPrettyPrinter().writeValueAsString(summary).getBytes(encoding));
+            } else {
+                out.write(mapper.writeValueAsString(summary).getBytes(encoding));
+            }
         } catch (Exception e) {
             e.printStackTrace(System.err);
         } finally {

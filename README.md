@@ -236,7 +236,7 @@ Property | Description | Required | Default value | Example value
 --- | --- | --- | --- | ---
 table_pattern | Apply to matching table names (REGEXP) | Yes | *None* | *None*
 column_pattern | Apply to matching column names (REGEXP) | Yes | *None* | *None*
-mask_policy | Mask values according to this policy | Yes | *None* | empty, hide
+mask_policy | Mask values according to this policy | Yes | *None* | empty, hide, md5
 
 **Mask policy:**
 
@@ -370,8 +370,8 @@ Property | Description | Required | Default value | Example value
 
 Property | Description | Required | Default value | Example value
 --- | --- | --- | --- | ---
-destination | Destination folder for output files | Yes | *None*
-compress | Compress output files using GZIP | No | false
+destination | Destination folder for output files | Yes | *None* | *None*
+compress | Compress output files using GZIP | No | false | *None*
 
 **Report metrics**
 
@@ -395,5 +395,53 @@ password | Authenticate to destination database using this password | No | *None
 * Tables: Number of tables loaded
 * Columns: Number of columns loaded from all tables
 * Rows: Number of rows loaded from all tables
+
+*Since 0.1.0*
+
+### Summary
+
+#### ConsoleSummaryPusher
+
+Displays a summary of the agent run on the local console.
+
+Property | Description | Required | Default value | Example value
+--- | --- | --- | --- | ---
+title | A title for this specific agent | Yes | *None* | *None*
+description | A description for this specific agent | No | *None* | *None*
+pretty | Pretty-print output | No | true | *None*
+
+*Since 0.1.0*
+
+#### DiskSummaryPusher
+
+Writes a summary of the agent run to a disk system.
+
+Property | Description | Required | Default value | Example value
+--- | --- | --- | --- | ---
+destination | Destination folder for the summary file | Yes | *None*  | *None*
+title | A title for this specific agent | Yes | *None* | *None*
+description | A description for this specific agent | No | *None* | *None*
+filename | Filename for the summary file | No | summary.json | *None*
+compress | Compress the summary file using GZIP | No | false | *None*
+encoding | Use this character encoding | No | UTF-8 | *None*
+pretty | Pretty-print output | No | false | *None*
+
+*Since 0.1.0*
+
+#### PortalSummaryPusher
+
+Sends a summary of the agent run to the OpenETL Portal.
+
+Property | Description | Required | Default value | Example value
+--- | --- | --- | --- | ---
+organization | Your organization id in OpenETL Portal | Yes | *None* | *None*
+apikey | Your organization API key in OpenETL Portal | Yes | *None* | *None*
+title | A title for this specific agent | Yes | *None* | *None*
+description | A description for this specific agent | No | *None* | *None*
+url | The OpenETL Portal API URL | No | https://openetl-portal.appspot.com/api/v1/summary | *None*
+connect_timeout | The max amount of milliseconds to wait for a connection | No | 10000 | *None*
+read_timeout | The max amount of milliseconds to wait for a response from the server | No | 30000 | *None*
+encoding | Use this character encoding | No | UTF-8 | *None*
+proxy | Use this HTTP proxy to send the summary | No | *None* | *None*
 
 *Since 0.1.0*

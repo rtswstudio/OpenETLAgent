@@ -1,7 +1,5 @@
 package com.rtsw.openetl.agent.common;
 
-import com.rtsw.openetl.agent.utils.DateUtils;
-
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -32,57 +30,6 @@ public class Report {
     private Map<String, Integer> warnings;
 
     private Map<String, Integer> errors;
-
-    public static class Factory {
-
-        private static String json(String name, Map map) {
-            StringBuilder sb = new StringBuilder();
-            sb.append(String.format("\t\"%s\": {", name));
-            int i = 0;
-            for (Object key : map.keySet()) {
-                if (i > 0) {
-                    sb.append(",");
-                }
-                Object value = map.get(key);
-                if (value instanceof String) {
-                    sb.append(String.format("\n\t\t\"%s\": \"%s\"", key, value));
-                } else {
-                    sb.append(String.format("\n\t\t\"%s\": %d", key, value));
-                }
-                i++;
-                if (i == map.keySet().size()) {
-                    sb.append("\n\t");
-                }
-            }
-            sb.append("}");
-            return (sb.toString());
-        }
-
-        public static String json(Report report) {
-            StringBuilder sb = new StringBuilder();
-            sb.append("{\n");
-            sb.append(String.format("\t\"implementation\": \"%s\",\n", report.getImplementation()));
-            sb.append(String.format("\t\"title\": \"%s\",\n", report.getTitle()));
-            sb.append(String.format("\t\"description\": \"%s\",\n", report.getDescription()));
-            sb.append(String.format("\t\"start\": \"%s\",\n", DateUtils.format(report.getStart())));
-            sb.append(String.format("\t\"end\": \"%s\",\n", DateUtils.format(report.getEnd())));
-            sb.append(String.format("\t\"tables\": %d,\n", report.getTables()));
-            sb.append(String.format("\t\"columns\": %d,\n", report.getColumns()));
-            sb.append(String.format("\t\"rows\": %d,\n", report.getRows()));
-
-            sb.append(Factory.json("extras", report.getExtras()));
-            sb.append(",\n");
-
-            sb.append(Factory.json("warnings", report.getWarnings()));
-            sb.append(",\n");
-
-            sb.append(Factory.json("errors", report.getErrors()));
-
-            sb.append("\n}");
-            return (sb.toString());
-        }
-
-    }
 
     public Report(String implementation) {
         this.implementation = implementation;

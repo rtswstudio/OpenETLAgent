@@ -8,29 +8,30 @@ import java.util.List;
  */
 public class Summary {
 
+    private String title;
+
+    private String description;
+
     private List<Report> reports;
-
-    public static class Factory {
-
-        public static String json(Summary summary) {
-            StringBuilder sb = new StringBuilder();
-            sb.append("[\n");
-            int i = 0;
-            for (Report report : summary.getReports()) {
-                if (i > 0) {
-                    sb.append(",\n");
-                }
-                sb.append(Report.Factory.json(report));
-                i++;
-            }
-            sb.append("\n]");
-            return (sb.toString());
-        }
-
-    }
 
     public Summary() {
         this.reports = new ArrayList<>();
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public List<Report> getReports() {
