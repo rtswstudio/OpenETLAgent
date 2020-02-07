@@ -169,6 +169,25 @@ batch_size | Return this many rows at a time for a single query | No | 10000 | *
 
 *Since 0.1.0*
 
+#### RandomExtractConnector
+
+Generates a table with random numbers, for testing purposes.
+
+Property | Description | Required | Default value | Example value
+--- | --- | --- | --- | ---
+min_rows | Generates a minimum of this number of rows | No | 50 | *None*
+max_rows | Generates a maximum of this number of rows | No | 100 | *None*
+min_value | Generates values with this as a minimum (integer) | No | 50 | *None*
+max_value | Generates values with this as a maximum (integer | No | 100 | *None*
+
+**Report metrics**
+
+* Tables: Number of tables extracted (always 1; RandomNumbers)
+* Columns: Number or columns extracted from all tables (always 2; Index and Number)
+* Rows: Number of rows extracted from all tables (between min_rows and max_rows)
+
+*Since 0.1.0*
+
 ### Transform
 
 #### DateFormatTransform
