@@ -52,28 +52,21 @@ public class RandomExtractConnector implements ExtractConnector {
 
     @Override
     public void extract(AgentListener agentListener) {
-
         Random random = new Random(System.currentTimeMillis());
-
         List<Column> columns = new ArrayList<>();
         columns.add(new Column("Index", "Integer", "java.lang.Integer"));
         columns.add(new Column("Number", "Integer", "java.lang.Integer"));
-
         Table table = new Table("RandomNumbers", columns);
-
         agentListener.onTable(table);
-
+        report.table();
         for (int i = 0; i < random.nextInt(maxRows - minRows) + minRows; i++)  {
-
             List<Object> values = new ArrayList<>();
             values.add(i);
             values.add(random.nextInt(maxValue - minValue) + minValue);
-
             Row row = new Row(values);
             agentListener.onRow(table, row);
-
+            report.row();
         }
-
     }
 
     @Override
