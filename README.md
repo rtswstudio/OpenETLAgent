@@ -447,6 +447,24 @@ pretty | Pretty-print output | No | false | *None*
 
 *Since 0.1.0*
 
+#### HTTPSummaryPusher
+
+Sends a summary of the agent run to a remote URL using HTTP POST.
+
+Property | Description | Required | Default value | Example value
+--- | --- | --- | --- | ---
+url | The remote URL | Yes | http://localhost:8080/ | *None*
+connect_timeout | The max amount of milliseconds to wait for a connection | No | 10000 | *None*
+read_timeout | The max amount of milliseconds to wait for a response from the server | No | 30000 | *None*
+encoding | Use this character encoding | No | UTF-8 | *None*
+proxy | Use this HTTP proxy to send the summary | No | *None* | *None*
+username | The username for HTTP basic access authentication | No | *None* | *None*
+password | The password for HTTP basic access authentication | No | *None* | *None*
+
+Authentication: https://en.wikipedia.org/wiki/Basic_access_authentication
+
+*Since 0.1.0*
+
 #### PortalSummaryPusher
 
 Sends a summary of the agent run to the OpenETL Portal.
