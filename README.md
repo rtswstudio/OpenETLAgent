@@ -148,6 +148,32 @@ infer_schema_date_format: https://docs.oracle.com/javase/8/docs/api/java/text/Si
 
 *Since 0.1.0*
 
+#### ExcelExtractConnector
+
+Extracts table, column and row information from Microsoft Excel files. Supports both XLS (Excel 97-2003 Workbook) and XLSX (Excel Workbook) formats.
+
+**Notes**
+
+* The sheet name is used as the table name
+* The first line of the file can be used to define column names
+* All columns are defaulted to a string representation
+
+Property | Description | Required | Default value | Example value
+--- | --- | --- | --- | ---
+source | Source folder for input files | Yes | *None* | /tmp
+filename_pattern | Include matching filenames (REGEXP) | Yes | *None* | *.csv
+sheet_pattern | Include matching sheets (REGEXP) | No | *None* | Sheet1
+header | Use first line as header (column names) | No | true | *None*
+recursive | Scan any possible sub-directories | No | false | *None*
+
+**Report metrics**
+
+* Tables: Number of tables extracted (1 file = 1 table)
+* Columns: Number or columns extracted from all tables
+* Rows: Number of rows extracted from all tables
+
+*Since 0.1.0*
+
 #### JDBCExtractConnector
 
 Extracts table, column and row information from databases supporting Java Database Connectivity (JDBC).
