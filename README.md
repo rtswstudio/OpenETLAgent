@@ -20,7 +20,8 @@ OpenETL is a platform to professionally manage your ETL (Extract, Transform, Loa
 The **Extract** phase involves reading data from various source systems, for example:
 
 * Relational databases using JDBC (for example Oracle, SQL Server, MySQL, PostgreSQL)
-* Local files (CSV)
+* CSV files
+* Micsosoft Excel files
 
 ### Transform
 
@@ -34,8 +35,9 @@ The **Transform** phase involves manipulating the incoming data, for example:
 
 The **Format** phase is a separation from the traditional ETL model, but very much necessary. Before loading the data, we need to define the output format, for example:
 
-* Comma separated values (CSV)
+* CSV files
 * JSON
+* SQL statements
 
 ### Load
 
@@ -43,6 +45,7 @@ The **Load** phase involves writing the data into a destination system, for exam
 
 * Console output
 * Local disk
+* Relational databases
 
 ## Connectors
 
