@@ -217,6 +217,33 @@ max_value | Generates values with this as a maximum (integer | No | 100 | *None*
 
 *Since 0.1.0*
 
+#### URLExtractConnector
+
+Extracts table, column and row information from web pages (HTML tables).
+
+**Notes**
+
+* Table names are determined by: 1. name attribute, 2. id attribute, 3. generated integer sequence
+* All columns are defaulted to a string representation
+
+Property | Description | Required | Default value | Example value
+--- | --- | --- | --- | ---
+url | The web page to read | Yes | *None* | https://www.w3schools.com/html/html_tables.asp
+table_pattern | Include matching tables (REGEXP) | No | *None* | *None*
+connect_timeout | The max amount of milliseconds to wait for a connection | No | 10000 | *None*
+read_timeout | The max amount of milliseconds to wait for a response from the server | No | 30000 | *None*
+proxy | Use this HTTP proxy to connect | No | *None* | *None*
+encoding | Use this character encoding | No | UTF-8 | *None*
+user_agent | Use this tag to identify client request (User-Agent header) | No | openetl-agent | *None*
+
+**Report metrics**
+
+* Tables: Number of tables extracted
+* Columns: Number or columns extracted from all tables
+* Rows: Number of rows extracted from all tables
+
+*Since 0.1.0*
+
 ### Transform
 
 #### DateFormatTransform
