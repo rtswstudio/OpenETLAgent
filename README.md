@@ -2,10 +2,10 @@
 
 OpenETL is a platform to professionally manage your ETL (Extract, Transform, Load) process. The platform consists of an **Agent** as well as a **Portal**. Key features include:
 
-* Built-in set of common extract plugins (e.g. JDBC, CSV)
+* Built-in set of common extract plugins (e.g. JDBC, CSV, Microsoft Excel)
 * Built-in set of common transform plugins (e.g. Mask Column, Rename Column, Drop Column)
-* Built-in set of common format plugins (e.g. CSV, JSON)
-* Built-in set of common load plugins (e.g. Disk, Console)
+* Built-in set of common format plugins (e.g. JDBC, CSV, JSON)
+* Built-in set of common load plugins (e.g. JDBC, Disk, Console)
 * Pluggable design (develop your own plugins using a simple API)
 * Light-weight and easy to deploy (just a single JAR file)
 * Pluggable interface for metrics
@@ -21,7 +21,7 @@ The **Extract** phase involves reading data from various source systems, for exa
 
 * Relational databases using JDBC (for example Oracle, SQL Server, MySQL, PostgreSQL)
 * CSV files
-* Micsosoft Excel files
+* Microsoft Excel files
 
 ### Transform
 
@@ -45,7 +45,7 @@ The **Load** phase involves writing the data into a destination system, for exam
 
 * Console output
 * Local disk
-* Relational databases
+* Relational databases using JDBC
 
 ## Connectors
 
