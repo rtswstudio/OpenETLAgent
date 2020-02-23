@@ -160,6 +160,7 @@ Extracts table, column and row information from Microsoft Excel files. Supports 
 * The sheet name is used as the table name
 * The first line of the file can be used to define column names
 * All columns are defaulted to a string representation
+* Uses the Apache POI library (http://poi.apache.org/)
 
 Property | Description | Required | Default value | Example value
 --- | --- | --- | --- | ---
@@ -225,6 +226,7 @@ Extracts table, column and row information from web pages (HTML tables).
 
 * Table names are determined by: 1. name attribute, 2. id attribute, 3. generated integer sequence
 * All columns are defaulted to a string representation
+* Uses the JSoup library (https://jsoup.org/)
 
 Property | Description | Required | Default value | Example value
 --- | --- | --- | --- | ---
