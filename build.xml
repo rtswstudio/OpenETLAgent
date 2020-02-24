@@ -25,6 +25,10 @@
         <copy todir="${dist}/lib" >
             <fileset dir="lib" includes="**"/>
         </copy>
+        <mkdir dir="${dist}/examples"/>
+        <copy todir="${dist}/examples" >
+            <fileset dir="examples" includes="**"/>
+        </copy>
     </target>
     <target name="clean">
         <delete dir="${build}"/>

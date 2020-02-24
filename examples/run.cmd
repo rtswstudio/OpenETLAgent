@@ -1,0 +1,1 @@
+java -classpath .;..\openetl-agent-0.1.0.jar;..\lib\* com.rtsw.openetl.agent.Agent -e extract.properties -t transform.properties -f format.properties -l load.properties -s summary.properties
