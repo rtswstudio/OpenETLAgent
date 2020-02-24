@@ -2,7 +2,7 @@
 
 OpenETL is a platform to professionally manage your ETL (Extract, Transform, Load) process. The platform consists of an **Agent** as well as a **Portal**. 
 
-Key features of te Agent includes:
+Key features of the Agent includes:
 
 * Built-in set of **extract** plugins to read data from the source system
 * Built-in set of **transform** plugins to manipulate the data
@@ -31,7 +31,7 @@ The **Transform** phase involves manipulating the data. Built-in plugins include
 * Formatting date values
 * Formatting numeric values
 * Dropping columns
-* Masking columns (for example anonymizing data)
+* Masking values (for example hashing)
 * Renaming columns
 * Trimming string values
 
