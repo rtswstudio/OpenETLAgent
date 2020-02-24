@@ -80,7 +80,7 @@ The **summary** phase is intended to save metrics (for example number of tables,
 
 The OpenETL Agent can be run from the command line or programmatically from your Java application. Typically, if running from the command line, multiple instances are started from the Windows Task Scheduler or Unix/Linux CRON Scheduler.
 
-*Please note the use of multiple transforms in the examples below.*
+*Please note the use of multiple transforms and summaries in the examples below.*
 
 ### Command Line
 
@@ -98,7 +98,8 @@ java -cp openetl-agent-0.1.0.jar com.rtsw.openetl.agent.Agent
     -t transform3.properties
     -f format.properties
     -l load.properties
-    -s summary.properties
+    -s summary1.properties
+    -s summary2.properties
 ```
 
 **Unix/Linux**
@@ -111,7 +112,8 @@ java -cp openetl-agent-0.1.0.jar com.rtsw.openetl.agent.Agent
     -t transform3.properties
     -f format.properties
     -l load.properties
-    -s summary.properties
+    -s summary1.properties
+    -s summary2.properties
 ```
 
 ### Programmatically (Java)
@@ -126,7 +128,8 @@ Agent agent = new Agent.Builder()
         .transform("transform3.properties")
         .format("format.properties")
         .load("load.properties")
-        .summary("summary.properties")
+        .summary("summary1.properties")
+        .summary("summary2.properties")
         .build();
 
 agent.run();
