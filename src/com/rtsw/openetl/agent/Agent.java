@@ -31,7 +31,7 @@ public class Agent implements AgentListener {
 
     private LoadConnector loadConnector;
 
-    private SummaryPusher summaryPusher;
+    private List<SummaryPusher> summaryPushers = new ArrayList<>();
 
     public static class Builder {
 
@@ -43,7 +43,7 @@ public class Agent implements AgentListener {
 
         private String load;
 
-        private String summary;
+        private List<String> summaries = new ArrayList<>();
 
         public Builder() {
         }
@@ -73,25 +73,25 @@ public class Agent implements AgentListener {
             return (this);
         }
 
-        public Builder summary(String path) {
-            summary = path;
+        public Builder summaries(List<String> paths) {
+            summaries = paths;
             return (this);
         }
 
         public Agent build() throws Exception {
-            return (new Agent(extract, transforms, format, load, summary));
+            return (new Agent(extract, transforms, format, load, summaries));
         }
 
     }
 
-    private Agent(String extract, List<String> transforms, String format, String load, String summary) throws Exception {
+    private Agent(String extract, List<String> transforms, String format, String load, List<String> summaries) throws Exception {
 
         // initialize extract
         Configuration extractConfiguration = new Configuration(new File(extract));
         this.extractConnector = getExtractConnector(extractConfiguration.get("implementation", null));
         this.extractConnector.init(extractConfiguration);
 
-        // initialize transform
+        // initialize transforms
         for (String transform : transforms) {
             Configuration transformConfiguration = new Configuration(new File(transform));
             this.transforms.add(getTransform(transformConfiguration.get("implementation", null)));
@@ -108,11 +108,12 @@ public class Agent implements AgentListener {
         this.loadConnector = getLoadConnector(loadConfiguration.get("implementation", null));
         this.loadConnector.init(loadConfiguration);
 
-        // initialize summary
-        Configuration summaryConfiguration = new Configuration(new File(summary));
-        this.summaryPusher = getSummaryPusher(summaryConfiguration.get("implementation", null));
-        this.summaryPusher.init(summaryConfiguration);
-
+        // initialize summaries
+        for (String summary : summaries) {
+            Configuration summaryConfiguration = new Configuration(new File(summary));
+            this.summaryPushers.add(getSummaryPusher(summaryConfiguration.get("implementation", null)));
+            this.summaryPushers.get(this.summaryPushers.size() - 1).init(summaryConfiguration);
+        }
     }
 
     public void run() {
@@ -138,7 +139,9 @@ public class Agent implements AgentListener {
         summary.getReports().add(loadConnector.report());
 
         // summary
-        summaryPusher.push(summary);
+        for (SummaryPusher summaryPusher : summaryPushers) {
+            summaryPusher.push(summary);
+        }
 
     }
 
@@ -264,12 +267,6 @@ public class Agent implements AgentListener {
             return;
         }
 
-        if (transforms.size() < 1) {
-            System.err.println("Error: At least 1 transform configuration is required\n");
-            usage();
-            return;
-        }
-
         if (formats.size() != 1) {
             System.err.println("Error: 1 format configuration is required\n");
             usage();
@@ -287,7 +284,7 @@ public class Agent implements AgentListener {
                 .transforms(transforms)
                 .format(formats.get(0))
                 .load(loads.get(0))
-                .summary(summaries.get(0))
+                .summaries(summaries)
                 .build();
 
         agent.run();
