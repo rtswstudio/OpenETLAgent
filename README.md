@@ -1,15 +1,16 @@
 ### OpenETL Agent
 
-OpenETL is a platform to professionally manage your ETL (Extract, Transform, Load) process. The platform consists of an **Agent** as well as a **Portal**. Key features include:
+OpenETL is a platform to professionally manage your ETL (Extract, Transform, Load) process. The platform consists of an **Agent** as well as a **Portal**. 
 
-* Built-in set of common extract plugins (e.g. JDBC, CSV, Microsoft Excel)
-* Built-in set of common transform plugins (e.g. Mask Column, Rename Column, Drop Column)
-* Built-in set of common format plugins (e.g. JDBC, CSV, JSON)
-* Built-in set of common load plugins (e.g. JDBC, Disk, Console)
-* Pluggable design (develop your own plugins using a simple API)
+Key features of te Agent includes:
+
+* Built-in set of **extract** plugins to read data from the source system
+* Built-in set of **transform** plugins to manipulate the data
+* Built-in set of **format** plugins to prepare the data for the destination
+* Built-in set of **load** plugins to write the data to the destination system
+* Pluggable design (develop your own plugins using a simple API if not built in)
 * Light-weight and easy to deploy (just a single JAR file)
 * Pluggable interface for metrics
-* Pluggable interface for exception handling
 
 ## Overview
 
@@ -17,7 +18,7 @@ OpenETL is a platform to professionally manage your ETL (Extract, Transform, Loa
 
 ### Extract
 
-The **Extract** phase involves reading data from various source systems, for example:
+The **Extract** phase involves reading data from source systems. Built-in plugins include support for:
 
 * Relational databases using JDBC (for example Oracle, SQL Server, MySQL, PostgreSQL)
 * CSV files
@@ -25,38 +26,55 @@ The **Extract** phase involves reading data from various source systems, for exa
 
 ### Transform
 
-The **Transform** phase involves manipulating the incoming data, for example:
+The **Transform** phase involves manipulating the data. Built-in plugins include support for:
 
-* Modifying column names (dropping, renaming)
-* Modifying column values (anonymizing)
-* Formatting dates and numbers
+* Formatting date values
+* Formatting numeric values
+* Dropping columns
+* Masking columns (for example anonymizing data)
+* Renaming columns
+* Trimming string values
 
 ### Format
 
-The **Format** phase is a separation from the traditional ETL model, but very much necessary. Before loading the data, we need to define the output format, for example:
+The **Format** phase is a separation from the traditional ETL model, but very much necessary. Before loading the data, we need to define the output format. Built-in plugins include support for:
 
-* CSV files
+* CSV
 * JSON
-* SQL statements
+* JDBC (SQL statements)
 
 ### Load
 
-The **Load** phase involves writing the data into a destination system, for example:
+The **Load** phase involves writing the data into a destination system. Built-in plugins include support for:
 
 * Console output
 * Local disk
 * Relational databases using JDBC
 
-## Connectors
+### Summary
+
+The **summary** phase is intended to save metrics (for example number of tables, columns and rows processed, as well as any warnings or errors) concerning the run. Built-in plugins include support for:
+
+* Console output
+* Local disk
+* HTTP (POST)
+* OpenETL Portal
 
 ## Download
+
+### Requirements
+
+* Java 1.8 or above
+* Apache Ant 1.6.5 or above (if building from source)
+* JUnit 4.12 or above (if running tests)
 
 ### Build from Source
 
 * Clone this repository
-* Make sure you have `ant` installed
+* Make sure you have `java` and `ant` installed
 * From the repository root, run `ant -f build.xml`
 * After the build is finished, you will see the resulting JAR file in the `dist` directory, for example `openetl-agent-0.1.0.jar`
+* Check out the examples in the `examples` directory
 
 ## Usage
 
