@@ -23,6 +23,7 @@ The **Extract** phase involves reading data from source systems. Built-in plugin
 * Relational databases using JDBC (for example Oracle, SQL Server, MySQL, PostgreSQL)
 * CSV files
 * Microsoft Excel files
+* HTML tables from URLs
 
 ### Transform
 
