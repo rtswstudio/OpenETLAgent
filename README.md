@@ -562,3 +562,36 @@ encoding | Use this character encoding | No | UTF-8 | *None*
 proxy | Use this HTTP proxy to send the summary | No | *None* | *None*
 
 *Since 0.1.0*
+
+#### PrometheusSummaryPusher
+
+Sends a summary of the agent run to Prometheus using the Prometheus Push Gateway.
+
+**Notes**
+
+* Agent runs are short-lived jobs, so the Prometheus Push Gateway is needed (https://prometheus.io/docs/practices/pushing/)
+* The implementation (for example *com.rtsw.openetl.agent.extract.CSVExtractConnector*) is added as a label to each metric
+
+**Example**
+
+```
+openetl_report_duration_milliseconds{implementation="com.rtsw.openetl.agent.extract.CSVExtractConnector"} 15
+openetl_report_tables_total{implementation="com.rtsw.openetl.agent.extract.CSVExtractConnector"} 1
+openetl_report_columns_total{implementation="com.rtsw.openetl.agent.extract.CSVExtractConnector"} 0
+openetl_report_rows_total{implementation="com.rtsw.openetl.agent.extract.CSVExtractConnector"} 62
+openetl_report_extras_total{implementation="com.rtsw.openetl.agent.extract.CSVExtractConnector"} 0
+openetl_report_warnings_total{implementation="com.rtsw.openetl.agent.extract.CSVExtractConnector"} 0
+openetl_report_errors_total{implementation="com.rtsw.openetl.agent.extract.CSVExtractConnector"} 0
+```
+
+Property | Description | Required | Default value | Example value
+--- | --- | --- | --- | ---
+host | The host part of the gateway URL | Yes | *None* | localhost, 127.0.0.1
+protocol | The protocol part of the gateway URL | No | http | http, https
+port | The port number part of the gateway URL | No | 9091 | *None*
+job | The Prometheus job name | No | openetl | *None*
+instance | The Prometheus instance name | No | *None* | *None*
+connect_timeout | The max amount of milliseconds to wait for a connection | No | 10000 | *None*
+read_timeout | The max amount of milliseconds to wait for a response from the server | No | 30000 | *None*
+encoding | Use this character encoding | No | UTF-8 | *None*
+proxy | Use this HTTP proxy to send the summary | No | *None* | *None*
