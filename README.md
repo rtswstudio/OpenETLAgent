@@ -60,6 +60,7 @@ The **summary** phase is intended to save metrics (for example number of tables,
 * Local disk
 * HTTP (POST)
 * OpenETL Portal
+* Prometheus (Push Gateway)
 
 ## Download
 
