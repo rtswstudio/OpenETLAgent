@@ -14,7 +14,7 @@ import java.util.Random;
  */
 public class RandomExtractConnector implements ExtractConnector {
 
-    private static final String ID = CSVExtractConnector.class.getName();
+    private static final String ID = RandomExtractConnector.class.getName();
 
     private Report report = new Report(ID);
 
