@@ -39,7 +39,10 @@ public class HTTPSummaryPusher implements SummaryPusher {
     public void init(Configuration configuration) throws Exception {
 
         // required
-        url = configuration.get("url", "http://localhost:8080/");
+        url = configuration.get("url", null);
+        if (url == null) {
+            throw new Exception("missing required parameter 'url'");
+        }
 
         // optional
         connectTimeout = configuration.get("connect_timeout", 10 * 1000);

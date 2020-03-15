@@ -23,6 +23,9 @@ public class ConsoleSummaryPusher implements SummaryPusher {
 
         // required
         title = configuration.get("title", null);
+        if (title == null) {
+            throw new Exception("missing required parameter 'title'");
+        }
 
         // optional
         description = configuration.get("description", null);

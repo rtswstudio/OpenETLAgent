@@ -46,8 +46,10 @@ public class TrimColumnTransform implements Transform {
             throw new Exception("missing required parameter 'column_pattern'");
         }
 
+        // optional
         trimName = configuration.get("trim_name", true);
 
+        // optional
         trimValue = configuration.get("trim_value", true);
 
     }

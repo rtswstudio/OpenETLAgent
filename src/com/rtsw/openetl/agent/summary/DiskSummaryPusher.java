@@ -37,9 +37,15 @@ public class DiskSummaryPusher implements SummaryPusher {
 
         // required
         destination = new File(configuration.get("destination", null));
+        if (destination == null) {
+            throw new Exception("missing required parameter 'destination'");
+        }
 
         // required
         title = configuration.get("title", null);
+        if (title == null) {
+            throw new Exception("missing required parameter 'title'");
+        }
 
         // optional
         description = configuration.get("description", null);

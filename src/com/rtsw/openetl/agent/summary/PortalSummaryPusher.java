@@ -50,12 +50,21 @@ public class PortalSummaryPusher implements SummaryPusher {
 
         // required
         organization = configuration.get("organization", null);
+        if (organization == null) {
+            throw new Exception("missing required parameter 'organization'");
+        }
 
         // required
-        apiKey = configuration.get("apikey", null);
+        apiKey = configuration.get("api_key", null);
+        if (apiKey == null) {
+            throw new Exception("missing required parameter 'api_key'");
+        }
 
         // required
         title = configuration.get("title", null);
+        if (title == null) {
+            throw new Exception("missing required parameter 'title'");
+        }
 
         // optional
         description = configuration.get("description", null);

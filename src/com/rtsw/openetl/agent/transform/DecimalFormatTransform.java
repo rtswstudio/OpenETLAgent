@@ -36,6 +36,9 @@ public class DecimalFormatTransform implements Transform {
 
         // required
         format = new DecimalFormat(configuration.get("format", null));
+        if (format == null) {
+            throw new Exception("missing required parameter 'format'");
+        }
 
         // required
         tablePattern = configuration.get("table_pattern", null);

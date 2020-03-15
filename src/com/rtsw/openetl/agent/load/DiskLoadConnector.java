@@ -41,6 +41,9 @@ public class DiskLoadConnector implements LoadConnector {
 
         // required
         destination = new File(configuration.get("destination", null));
+        if (destination == null) {
+            throw new Exception("missing required parameter 'destination'");
+        }
 
         // optional
         compress = configuration.get("compress", false);

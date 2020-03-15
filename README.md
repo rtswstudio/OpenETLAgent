@@ -553,7 +553,7 @@ Sends a summary of the agent run to the OpenETL Portal.
 Property | Description | Required | Default value | Example value
 --- | --- | --- | --- | ---
 organization | Your organization id in OpenETL Portal | Yes | *None* | *None*
-apikey | Your organization API key in OpenETL Portal | Yes | *None* | *None*
+api_key | Your organization API key in OpenETL Portal | Yes | *None* | *None*
 title | A title for this specific agent | Yes | *None* | *None*
 description | A description for this specific agent | No | *None* | *None*
 url | The OpenETL Portal API URL | No | https://openetl-portal.appspot.com/api/v1/summary | *None*

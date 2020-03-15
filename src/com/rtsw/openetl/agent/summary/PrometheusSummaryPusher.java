@@ -41,6 +41,9 @@ public class PrometheusSummaryPusher implements SummaryPusher {
 
         // required
         host = configuration.get("host", null);
+        if (host == null) {
+            throw new Exception("missing required parameter 'host'");
+        }
 
         // optional
         protocol = configuration.get("protocol", "http");
