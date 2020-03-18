@@ -1,6 +1,6 @@
 ### OpenETL Agent
 
-OpenETL is a platform to professionally manage your ETL (Extract, Transform, Load) process. The platform consists of an **Agent** as well as a **Portal**. 
+OpenETL is a platform to professionally manage your ETL (Extract, Transform, Load) process. The platform consists of an **Agent** as well as a **Portal**. This site focuses on the Agent, which is open-source and completely free to use. More information on the Portal can be found <a href="https://openetl-portal.appspot.com/">here</a>.
 
 Key features of the Agent includes:
 
