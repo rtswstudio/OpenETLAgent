@@ -24,6 +24,7 @@ The **Extract** phase involves reading data from source systems. Built-in plugin
 * CSV files
 * Microsoft Excel files
 * HTML tables from URLs
+* Microsoft Access databases
 
 ### Transform
 
@@ -142,6 +143,25 @@ agent.run();
 ## Configuration Reference
 
 ### Extract
+
+#### AccessExtractConnector
+
+Extracts table, column and row information from Microsoft Access databases.
+
+Property | Description | Required | Default value | Example value
+--- | --- | --- | --- | ---
+source | Source folder for input databases (files) | Yes | *None* | /tmp
+filename_pattern | Include matching filenames (REGEXP) | Yes | *None* | *.mdb, *.accdb
+table_pattern | Include matching tables (REGEXP) | No | *None* | *None*
+recursive | Scan any possible sub-directories | No | false | *None*
+
+**Report metrics**
+
+* Tables: Number of tables extracted
+* Columns: Number or columns extracted from all tables
+* Rows: Number of rows extracted from all tables
+
+*Since 0.1.0*
 
 #### CSVExtractConnector
 
