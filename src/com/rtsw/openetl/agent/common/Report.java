@@ -25,17 +25,14 @@ public class Report {
 
     private long rows = 0;
 
-    private Map<String, String> extras;
+    private Map<String, String> extras = new HashMap<>();
 
-    private Map<String, Integer> warnings;
+    private Map<String, Integer> warnings = new HashMap<>();
 
-    private Map<String, Integer> errors;
+    private Map<String, Integer> errors = new HashMap<>();
 
     public Report(String implementation) {
         this.implementation = implementation;
-        extras = new HashMap<>();
-        warnings = new HashMap<>();
-        errors = new HashMap<>();
     }
 
     public void warning(String message) {

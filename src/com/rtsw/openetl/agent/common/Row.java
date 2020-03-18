@@ -1,5 +1,6 @@
 package com.rtsw.openetl.agent.common;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -7,7 +8,7 @@ import java.util.List;
  */
 public class Row {
 
-    private List<Object> values;
+    private List<Object> values = new ArrayList<>();
 
     public Row() {
     }

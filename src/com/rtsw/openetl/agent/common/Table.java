@@ -2,6 +2,7 @@ package com.rtsw.openetl.agent.common;
 
 import com.rtsw.openetl.agent.common.Column;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -11,7 +12,7 @@ public class Table {
 
     private String name;
 
-    private List<Column> columns;
+    private List<Column> columns = new ArrayList<>();
 
     public Table() {
     }
