@@ -117,6 +117,12 @@ public class JDBCLoadConnector implements LoadConnector {
                 if (object instanceof Boolean) {
                     statement.setBoolean(i, (Boolean) object);
                 }
+                if (object instanceof Double) {
+                    statement.setDouble(i, (Double) object);
+                }
+                if (object instanceof Float) {
+                    statement.setFloat(i, (Float) object);
+                }
                 i++;
             }
             statement.execute();
