@@ -44,6 +44,15 @@ public class DiskLoadConnector implements LoadConnector {
         if (destination == null) {
             throw new Exception("missing required parameter 'destination'");
         }
+        if (!destination.exists()) {
+            throw new Exception(String.format("destination '%s' does not exist", destination.getAbsolutePath()));
+        }
+        if (!destination.isDirectory()) {
+            throw new Exception(String.format("destination '%s' is not a directory", destination.getAbsolutePath()));
+        }
+        if (!destination.canWrite()) {
+            throw new Exception(String.format("destination '%s' does not have write permission", destination.getAbsolutePath()));
+        }
 
         // optional
         compress = configuration.get("compress", false);
@@ -136,16 +145,6 @@ public class DiskLoadConnector implements LoadConnector {
             OutputStream out = streams.get(table.getName());
             out.write(format.format(table, row));
             report.row();
-        } catch (Exception e) {
-            report.error(e.getMessage());
-        }
-    }
-
-    @Override
-    public void clean(Table table) {
-        try {
-            OutputStream out = streams.get(table.getName());
-            out.close();
         } catch (Exception e) {
             report.error(e.getMessage());
         }

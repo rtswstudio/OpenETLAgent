@@ -116,10 +116,6 @@ public class ConsoleLoadConnector implements LoadConnector {
     }
 
     @Override
-    public void clean(Table table) {
-    }
-
-    @Override
     public void clean() {
         report.end();
     }
