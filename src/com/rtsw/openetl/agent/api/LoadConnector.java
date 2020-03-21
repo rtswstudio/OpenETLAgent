@@ -73,13 +73,6 @@ public interface LoadConnector {
     void load(Table table, Row row, Format format);
 
     /**
-     * Clean up any resources used (after each table).
-     *
-     * @param table The table
-     */
-    void clean(Table table);
-
-    /**
      * Clean up any resources used.
      */
     void clean();
