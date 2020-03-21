@@ -94,7 +94,6 @@ public class CSVExtractConnector implements ExtractConnector {
         // event listener
         this.agentListener = agentListener;
 
-
         File base = new File(source);
 
         // check that source exists
