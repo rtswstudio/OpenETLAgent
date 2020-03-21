@@ -46,7 +46,12 @@ public class CSVFormat implements Format {
 
     @Override
     public byte[] getHeaderSeparator() {
-        return (null);
+        try {
+            return (lineSeparator.getBytes(encoding));
+        } catch (Exception e) {
+            report.warning(e.getMessage());
+            return (lineSeparator.getBytes());
+        }
     }
 
     @Override
