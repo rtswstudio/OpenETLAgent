@@ -23,7 +23,7 @@ public class JDBCFormat implements Format {
 
     @Override
     public String getFileExtensionHint() {
-        return (".ql");
+        return ("ql");
     }
 
     @Override
