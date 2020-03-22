@@ -92,8 +92,8 @@ public class AzureLoadConnector implements LoadConnector {
             throw new Exception("missing required parameter 'container'");
         }
 
-        // required
-        path = configuration.get("path", null);
+        // optional
+        path = configuration.get("path", "/");
         if (path == null) {
             throw new Exception("missing required parameter 'path'");
         }
@@ -220,7 +220,18 @@ public class AzureLoadConnector implements LoadConnector {
         for (String s : files.values()) {
             try {
                 File file = new File(workDir, s);
-                BlobClient blobClient = blobContainerClient.getBlobClient(path + "/" + s);
+                BlobClient blobClient;
+                if (path == null || path.isEmpty() || path.equals("/")) {
+                    blobClient = blobContainerClient.getBlobClient(s);
+                } else {
+                    if (path.startsWith("/")) {
+                        path = path.substring(1);
+                    }
+                    if (path.endsWith("/")) {
+                        path = path.substring(0, path.length() - 1);
+                    }
+                    blobClient = blobContainerClient.getBlobClient(path + "/" + s);
+                }
                 blobClient.uploadFromFile(file.getAbsolutePath(), overwrite);
                 if (delete) {
                     file.delete();
