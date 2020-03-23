@@ -7,6 +7,9 @@ import com.rtsw.openetl.agent.common.Table;
 import com.rtsw.openetl.agent.common.Configuration;
 import com.rtsw.openetl.agent.common.Report;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 /**
  * @author RT Software Studio
  */
@@ -15,6 +18,8 @@ public class JDBCFormat implements Format {
     private static final String ID = JDBCFormat.class.getName();
 
     private Report report = new Report(ID);
+
+    private String dateFormat;
 
     @Override
     public String getId() {
@@ -38,12 +43,12 @@ public class JDBCFormat implements Format {
 
     @Override
     public byte[] getHeaderSeparator() {
-        return (null);
+        return ("\n".getBytes());
     }
 
     @Override
     public byte[] getRowSeparator() {
-        return (null);
+        return ("\n".getBytes());
     }
 
     @Override
@@ -53,7 +58,12 @@ public class JDBCFormat implements Format {
 
     @Override
     public void init(Configuration configuration) throws Exception {
+
         report.start();
+
+        // optional
+        dateFormat = configuration.get("date_format", "yyyy-MM-dd HH:mm:ss");
+
     }
 
     @Override
@@ -69,7 +79,7 @@ public class JDBCFormat implements Format {
             }
             sb.append(column.getName());
             sb.append(" ");
-            sb.append(column.getTypeName().equals("VARCHAR") ? "VARCHAR(255)" : column.getTypeName());
+            sb.append(getSQLType(column.getClassName()));
             report.column();
             i++;
         }
@@ -88,7 +98,18 @@ public class JDBCFormat implements Format {
             if (i > 0) {
                 sb.append(", ");
             }
-            sb.append("?");
+            Object o = row.getValues().get(i);
+            if (o instanceof String) {
+                sb.append("'");
+                sb.append(o);
+                sb.append("'");
+            } else if (o instanceof Date) {
+                sb.append("'");
+                sb.append(new SimpleDateFormat(dateFormat).format((Date) o));
+                sb.append("'");
+            } else {
+                sb.append(o);
+            }
         }
         sb.append(")");
         report.row();
@@ -103,6 +124,20 @@ public class JDBCFormat implements Format {
     @Override
     public Report report() {
         return (report);
+    }
+
+    private String getSQLType(String type) {
+        switch (type) {
+            case "java.lang.String": return "varchar";
+            case "java.math.BigDecimal": return "decimal";
+            case "java.lang.Boolean": return "boolean";
+            case "java.lang.Integer": return "integer";
+            case "java.lang.Long": return "bigint";
+            case "java.lang.Float": return "real";
+            case "java.lang.Double": return "double";
+            case "java.util.Date": return "timestamp";
+            default: return "varchar";
+        }
     }
 
 }

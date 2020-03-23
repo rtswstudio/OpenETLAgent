@@ -6,11 +6,7 @@ import com.rtsw.openetl.agent.common.Report;
 import com.rtsw.openetl.agent.common.Row;
 import com.rtsw.openetl.agent.common.Table;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.Timestamp;
-import java.util.Date;
+import java.sql.*;
 
 /**
  * @author RT Software Studio
@@ -96,36 +92,8 @@ public class JDBCLoadConnector implements LoadConnector {
         Connection connection = null;
         try {
             connection = getConnection();
-            PreparedStatement statement = connection.prepareStatement(new String(format.format(table, row)));
-            int i = 1;
-            for (Object object : row.getValues()) {
-                if (object instanceof Long) {
-                    statement.setLong(i, (Long) object);
-                }
-                if (object instanceof Integer) {
-                    statement.setInt(i, (Integer) object);
-                }
-                if (object instanceof String) {
-                    statement.setString(i, (String) object);
-                }
-                if (object instanceof Date) {
-                    statement.setDate(i, (java.sql.Date) object);
-                }
-                if (object instanceof Timestamp) {
-                    statement.setTimestamp(i, (Timestamp) object);
-                }
-                if (object instanceof Boolean) {
-                    statement.setBoolean(i, (Boolean) object);
-                }
-                if (object instanceof Double) {
-                    statement.setDouble(i, (Double) object);
-                }
-                if (object instanceof Float) {
-                    statement.setFloat(i, (Float) object);
-                }
-                i++;
-            }
-            statement.execute();
+            Statement statement = connection.createStatement();
+            statement.execute(new String(format.format(table, row)));
             report.row();
         } catch (Exception e) {
             report.error(e.getMessage());
