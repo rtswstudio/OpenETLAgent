@@ -154,45 +154,69 @@ public class AccessExtractConnector implements ExtractConnector {
         }
     }
 
+    /**
+     * Map MS Access type to Java type
+     *
+     * https://docs.microsoft.com/en-us/sql/odbc/microsoft/microsoft-access-data-types?view=sql-server-ver15
+     *
+     * @param name
+     * @param type
+     * @return
+     */
     private com.rtsw.openetl.agent.common.Column getColumn(String name, DataType type) {
         com.rtsw.openetl.agent.common.Column c = new com.rtsw.openetl.agent.common.Column();
         c.setName(name);
-        if (type == DataType.BIG_INT) {
-            c.setTypeName("Long");
-            c.setClassName("java.lang.Long");
-        }
-        if (type == DataType.LONG) {
-            c.setTypeName("Long");
-            c.setClassName("java.lang.Long");
-        }
-        if (type == DataType.INT) {
-            c.setTypeName("Integer");
-            c.setClassName("java.lang.Integer");
-        }
-        if (type == DataType.NUMERIC) {
-            c.setTypeName("Integer");
-            c.setClassName("java.lang.Integer");
-        }
-        if (type == DataType.BOOLEAN) {
-            c.setTypeName("Boolean");
-            c.setClassName("java.lang.Boolean");
-        }
+        c.setTypeName("Object");
+        c.setClassName("java.lang.Object");
+
+        // string
         if (type == DataType.TEXT) {
             c.setTypeName("String");
             c.setClassName("java.lang.String");
         }
-        if (type == DataType.DOUBLE) {
-            c.setTypeName("Double");
-            c.setClassName("java.lang.Double");
+
+        // big decimal
+        if (type == DataType.BIG_INT) {
+            c.setTypeName("BigDecimal");
+            c.setClassName("java.math.BigDecimal");
         }
+
+        // boolean
+        if (type == DataType.BOOLEAN) {
+            c.setTypeName("Boolean");
+            c.setClassName("java.lang.Boolean");
+        }
+
+        // integer
+        if (type == DataType.INT || type == DataType.NUMERIC) {
+            c.setTypeName("Integer");
+            c.setClassName("java.lang.Integer");
+        }
+
+        // long
+        if (type == DataType.LONG) {
+            c.setTypeName("Long");
+            c.setClassName("java.lang.Long");
+        }
+
+        // float
         if (type == DataType.FLOAT) {
             c.setTypeName("Float");
             c.setClassName("java.lang.Float");
         }
+
+        // double
+        if (type == DataType.DOUBLE) {
+            c.setTypeName("Double");
+            c.setClassName("java.lang.Double");
+        }
+
+        // date
         if (type == DataType.SHORT_DATE_TIME) {
             c.setTypeName("Date");
             c.setClassName("java.util.Date");
         }
+
         return (c);
     }
 

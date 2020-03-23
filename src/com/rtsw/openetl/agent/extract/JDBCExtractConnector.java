@@ -1,5 +1,6 @@
 package com.rtsw.openetl.agent.extract;
 
+import com.healthmarketscience.jackcess.DataType;
 import com.rtsw.openetl.agent.common.Column;
 import com.rtsw.openetl.agent.api.ExtractConnector;
 import com.rtsw.openetl.agent.common.Row;
@@ -163,10 +164,7 @@ public class JDBCExtractConnector implements ExtractConnector {
             if (metaData != null) {
                 List<Column> columns = new ArrayList<>();
                 for (int i = 1; i < metaData.getColumnCount() + 1; i++) {
-                    String name = metaData.getColumnName(i);
-                    String typeName = metaData.getColumnTypeName(i);
-                    String className = metaData.getColumnClassName(i);
-                    columns.add(new Column(name, typeName, className));
+                    columns.add(getColumn(metaData.getColumnName(i), metaData.getColumnType(i)));
                 }
                 Table table = new Table(tableName, columns);
                 report.table();
@@ -217,6 +215,72 @@ public class JDBCExtractConnector implements ExtractConnector {
         } finally {
             closeConnection(connection);
         }
+    }
+
+    /**
+     * Map SQL type to Java type
+     *
+     * https://www.service-architecture.com/articles/database/mapping_sql_and_java_data_types.html
+     *
+     * @param name
+     * @param type
+     * @return
+     */
+    private Column getColumn(String name, int type) {
+        Column column = new Column();
+        column.setName(name);
+        column.setTypeName("Object");
+        column.setClassName("java.lang.Object");
+
+        // string
+        if (type == Types.VARCHAR || type == Types.CHAR) {
+            column.setTypeName("String");
+            column.setClassName("java.lang.String");
+        }
+
+        // big decimal
+        if (type == Types.DECIMAL || type == Types.NUMERIC) {
+            column.setTypeName("BigDecimal");
+            column.setClassName("java.math.BigDecimal");
+        }
+
+        // boolean
+        if (type == Types.BOOLEAN || type == Types.BIT) {
+            column.setTypeName("Boolean");
+            column.setClassName("java.lang.Boolean");
+        }
+
+        // integer
+        if (type == Types.INTEGER || type == Types.SMALLINT || type == Types.TINYINT) {
+            column.setTypeName("Integer");
+            column.setClassName("java.lang.Integer");
+        }
+
+        // long
+        if (type == Types.BIGINT) {
+            column.setTypeName("Long");
+            column.setClassName("java.lang.Long");
+        }
+
+        // float
+        if (type == Types.REAL) {
+            column.setTypeName("Float");
+            column.setClassName("java.lang.Float");
+        }
+
+        // double
+        if (type == Types.DOUBLE || type == Types.FLOAT) {
+            column.setTypeName("Double");
+            column.setClassName("java.lang.Double");
+        }
+
+        // date
+        if (type == Types.DATE || type == Types.TIMESTAMP || type == Types.TIMESTAMP_WITH_TIMEZONE || type == Types.TIME) {
+            column.setTypeName("Date");
+            column.setClassName("java.util.Date");
+        }
+
+        return (column);
     }
 
 }
