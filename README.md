@@ -52,6 +52,8 @@ The **Load** phase involves writing the data into a destination system. Built-in
 * Console output
 * Local disk
 * Relational databases using JDBC
+* Microsoft Azure (Blob Storage)
+* Google Cloud Services Storage
 
 ### Summary
 
