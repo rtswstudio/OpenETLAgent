@@ -35,6 +35,7 @@ The **Transform** phase involves manipulating the data. Built-in plugins include
 * Dropping columns
 * Masking values (for example hashing)
 * Renaming columns
+* Replacing values
 * Trimming string values
 
 ### Format
@@ -67,6 +68,6 @@ The **summary** phase is intended to save metrics (for example number of tables,
 
 ## Documentation
 
-For the full documentation, please see the <a href="https://github.com/rtswstudio/OpenETLAgent/wiki">OpenETL Agent Wiki</a>.
+For the full documentation, please see the <a href="https://github.com/rtswstudio/OpenETLAgent/wiki/Documentation">OpenETL Agent Wiki</a>.
 
 
